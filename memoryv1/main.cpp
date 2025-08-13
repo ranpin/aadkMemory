@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <algorithm>
+#include <cctype> 
 
 // 工具函数: Python list -> C++ vector<float>
 std::vector<float> py_list_to_vector(PyObject* pyList) {
@@ -67,6 +69,9 @@ std::vector<std::vector<float>> encode_list(PyObject* pModule, const std::vector
         PyObject* pArgs = PyTuple_Pack(1, pyList);
         PyObject* pValue = PyObject_CallObject(pFunc, pArgs);
         Py_DECREF(pArgs);
+        if (!pValue) {
+            PyErr_Print(); // 建议加上这一句
+        }
         if (pValue && PyList_Check(pValue)) {
             Py_ssize_t outer = PyList_Size(pValue);
             vecs.resize(outer);
@@ -88,8 +93,17 @@ std::string qwen_generate(PyObject* pModule, const std::string& prompt) {
         PyObject* pArgs = PyTuple_Pack(1, PyUnicode_FromString(prompt.c_str()));
         PyObject* pValue = PyObject_CallObject(pFunc, pArgs);
         Py_DECREF(pArgs);
+        if (!pValue) {
+            PyErr_Print(); // 建议加上这一句
+        }
+
         if (pValue) {
             reply = PyUnicode_AsUTF8(pValue);
+            reply.erase(
+                std::remove_if(reply.begin(), reply.end(),
+                        [](unsigned char x){ return std::isspace(x); }),
+                reply.end()
+            );
             if (reply.empty()) reply = "[C++] 收到空回复";
             Py_DECREF(pValue);
         } else {
@@ -105,7 +119,7 @@ std::string qwen_generate(PyObject* pModule, const std::string& prompt) {
 int main() {
     Py_Initialize();
     PyRun_SimpleString("import sys");
-    PyRun_SimpleString("sys.path.append('/home/vision/chenrunbin/faiss/memoryv1')");
+    PyRun_SimpleString("sys.path.append('/home/vision/chenrunbin/faiss/memoryv2')");
     PyRun_SimpleString("sys.path.append('/home/vision/.local/lib/python3.10/site-packages')");
     PyRun_SimpleString("sys.path.append('/usr/lib/python3.10')");
     PyRun_SimpleString("sys.path.append('/usr/lib/python3.10/lib-dynload')");
@@ -176,26 +190,30 @@ int main() {
                 std::cout << "- [相似度: " << sims[i] << "] " << id2text[ids[i]] << "\n";
             }
         }
+        std::cout << "\n\n";
 
-        // 加入记忆（仅添加查询）
-        index.add_with_ids(1, qvec.data(), &next_id);
-        id2text[next_id] = query;
-        next_id++;
+        // // 加入记忆（仅添加查询）
+        // index.add_with_ids(1, qvec.data(), &next_id);
+        // id2text[next_id] = query;
+        // next_id++;
 
 
 
-        // std::string prompt = "用户问题：" + query + "\n相关历史片段：\n";
-        // for (int i = 0; i < k; i++) {
-        //     if (ids[i] != -1) {
-        //         prompt += "- " + id2text[ids[i]] + "\n";
-        //     }
-        // }
-        // prompt += "基于以上内容，给出简洁自然的中文回复：";
+        std::string prompt = "用户的问题:" + query;
+        prompt += "相关可供参考的历史对话片段信息如下:";
+        for (int i = 0; i < k; i++) {
+            if (ids[i] != -1) {
+                prompt += id2text[ids[i]];
+            }
+        }
+        prompt += "请参考上述信息，用中文回复用户的问题。";
 
-        // std::string reply = qwen_generate(pModule, prompt);
-        // std::cout << "Qwen: " << reply << "\n";
+        std::cout << "Qwen: " << prompt << "\n";
 
-        // // 加入记忆
+        std::string reply = qwen_generate(pModule, prompt);
+        std::cout << "Qwen: " << reply << "\n";
+
+        // 加入记忆
         // index.add_with_ids(1, qvec.data(), &next_id);
         // id2text[next_id] = query;
         // next_id++;
@@ -205,6 +223,16 @@ int main() {
         //     id2text[next_id] = reply;
         //     next_id++;
         // }
+
+        // === 将问答对加入记忆 ===
+        std::string qa_pair = "A: " + query + " B: " + reply;
+
+        auto emb_qa = get_embedding(pModule, qa_pair);
+        if (!emb_qa.empty()) {
+            index.add_with_ids(1, emb_qa.data(), &next_id);
+            id2text[next_id] = qa_pair;
+            next_id++;
+        }
 
 
     }

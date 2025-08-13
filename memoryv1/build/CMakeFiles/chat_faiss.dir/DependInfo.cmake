@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/vision/chenrunbin/faiss/memoryv1/main.cpp" "CMakeFiles/chat_faiss.dir/main.cpp.o" "gcc" "CMakeFiles/chat_faiss.dir/main.cpp.o.d"
+  "/home/vision/chenrunbin/faiss/memoryv2/main.cpp" "CMakeFiles/chat_faiss.dir/main.cpp.o" "gcc" "CMakeFiles/chat_faiss.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

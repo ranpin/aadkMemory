@@ -63,24 +63,27 @@ def load_lccc(n=50):
     #     print(f"[HF] 成功加载 {len(texts)} 条对话")
     #     return texts
 
-    """加载 SQuAD 中文问答数据集"""
-    try:
-        from datasets import load_dataset
-        print("[HF] 加载 SQuAD 中文问答数据集...")
-        dataset = load_dataset("squad_v2", split=f"train[:{n}]")
-        texts = [f"问题: {item['question']} 答案: {item['answers']['text'][0]}" for item in dataset]
-        return texts
+    # """加载 SQuAD 中文问答数据集"""
+    # try:
+    #     from datasets import load_dataset
+    #     # print("[HF] 加载 SQuAD 中文问答数据集...")
+    #     # dataset = load_dataset("squad_v2", split=f"train[:{n}]")
+    #     # texts = [f"A: {item['question']} B: {item['answers']['text'][0]}" for item in dataset]
+    #     # return texts
 
-    except Exception as e:
-        print(f"[HF][错误] 加载失败: {e}")
-        print("[HF] 回退到内置测试数据")
-        return [
-            "你好，最近怎么样？ 很好，谢谢。",
-            "今天天气不错啊 是的，非常适合散步。",
-            "周末一起去看电影吧 好啊，一起去。",
-            "你在干嘛 我在看书。",
-            "吃饭了吗 还没吃呢。"
-        ][:n]
+    # except Exception as e:
+    #     print(f"[HF][错误] 加载失败: {e}")
+    #     print("[HF] 回退到内置测试数据")
+    return [
+        "A: 你好，最近怎么样？ B: 很好，谢谢。",
+        "A: 今天天气不错啊。 B: 是的，非常适合散步。",
+        "A: 周末一起去看电影吧。 B: 好啊，一起去。",
+        "A: 你在干嘛。 B: 我在看书。",
+        "A: 吃饭了吗。 B: 还没吃呢。",
+        "A: 昨天天气好吗? B: 倾盆大雨。",
+        "A: 今天天气好吗? B: 天气晴朗。",
+        "A: 明天天气好吗? B: 漫天大雪。",
+    ][:n]
 
 
 # ========= Qwen 模型 =========
@@ -109,22 +112,21 @@ def qwen_generate(prompt: str, max_new_tokens=256):
             **inputs,
             max_new_tokens=max_new_tokens,
             do_sample=True,
-            top_p=0.9,
-            temperature=0.8,
+            top_p=0.6,
+            temperature=0.6,
             pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id,
             use_cache=False  # ★★★ 关键修复点 ★★★
         )
 
-        if outputs is None or outputs.dim() == 0:
-            return "[Qwen] 生成失败：无有效输出"
-
         input_len = inputs["input_ids"].shape[1]
-        generated_ids = outputs[0][input_len:]
+        gen_ids = outputs[0][input_len:]
+        reply = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
+        # reply = tokenizer.decode(gen_ids, skip_special_tokens=False).strip()
 
-        if generated_ids.numel() == 0:
-            return "[Qwen] 生成失败：无新内容"
+        if not reply.strip():
+            return "[Qwen] 模型未生成有效文本"
 
-        return tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
+        return reply
 
     except Exception as e:
         return f"[Qwen] 异常: {str(e)}"

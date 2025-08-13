@@ -1,5 +1,5 @@
 CMakeFiles/chat_faiss.dir/main.cpp.o: \
- /home/vision/chenrunbin/faiss/memoryv1/main.cpp \
+ /home/vision/chenrunbin/faiss/memoryv2/main.cpp \
  /usr/include/stdc-predef.h /usr/include/python3.10/Python.h \
  /usr/include/python3.10/patchlevel.h /usr/include/python3.10/pyconfig.h \
  /usr/include/aarch64-linux-gnu/python3.10/pyconfig.h \
@@ -329,4 +329,9 @@ CMakeFiles/chat_faiss.dir/main.cpp.o: \
  /usr/include/c++/12/bits/unordered_map.h /usr/include/c++/12/iostream \
  /usr/include/c++/12/map /usr/include/c++/12/bits/stl_tree.h \
  /usr/include/c++/12/bits/stl_map.h \
- /usr/include/c++/12/bits/stl_multimap.h
+ /usr/include/c++/12/bits/stl_multimap.h /usr/include/c++/12/algorithm \
+ /usr/include/c++/12/bits/stl_algo.h \
+ /usr/include/c++/12/bits/algorithmfwd.h \
+ /usr/include/c++/12/bits/stl_heap.h \
+ /usr/include/c++/12/bits/uniform_int_dist.h \
+ /usr/include/c++/12/pstl/glue_algorithm_defs.h
