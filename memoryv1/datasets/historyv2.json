@@ -1,0 +1,55 @@
+[
+    "Question: 你好，最近怎么样？ Answer: 很好，谢谢。\"timestamp\": 2025-01-14 09:00:01",
+    "Question: 今天天气不错啊。 Answer: 是的，非常适合散步。\"timestamp\": 2025-01-14 15:21:28",
+    "Question: 你午饭吃了什么？ Answer: 吃了牛肉面。\"timestamp\": 2025-01-14 18:45:12",
+    "Question: 最近在忙什么？ Answer: 在做一个新项目。\"timestamp\": 2025-01-14 20:05:44",
+    "Question: 你有什么新计划？ Answer: 打算学习法语。\"timestamp\": 2025-01-14 22:15:30",
+    "Question: 喜欢喝茶还是咖啡？ Answer: 最近在喝绿茶。\"timestamp\": 2025-01-14 23:55:10",
+
+    "Question: 周末一起去看电影吧。 Answer: 好啊，一起去。\"timestamp\": 2025-02-14 10:10:05",
+    "Question: 今天心情怎么样？ Answer: 还不错，很放松。\"timestamp\": 2025-02-14 12:30:00",
+    "Question: 你在干嘛。 Answer: 我在看书。\"timestamp\": 2025-02-14 15:21:28",
+    "Question: 吃饭了吗。 Answer: 还没吃呢。\"timestamp\": 2025-02-14 20:33:55",
+    "Question: 最近听的音乐是什么？ Answer: 听了几首周杰伦的歌。\"timestamp\": 2025-02-14 21:40:12",
+    "Question: 昨天几点睡的？ Answer: 差不多午夜12点。\"timestamp\": 2025-02-14 23:50:59",
+
+    "Question: 昨天天气好吗? Answer: 倾盆大雨。\"timestamp\": 2025-03-14 08:00:00",
+    "Question: 今天空气好吗？ Answer: 挺好的，阳光明媚。\"timestamp\": 2025-03-14 09:20:30",
+    "Question: 今天天气好吗? Answer: 天气晴朗。\"timestamp\": 2025-03-14 15:21:28",
+    "Question: 明天天气好吗? Answer: 漫天大雪。\"timestamp\": 2025-03-14 18:55:47",
+    "Question: 最近看什么书了？ Answer: 我在看《百年孤独》。\"timestamp\": 2025-03-14 20:10:15",
+    "Question: 最近做饭了吗？ Answer: 做了几次，味道不错。\"timestamp\": 2025-03-14 22:45:22",
+
+    "Question: 最近工作顺利吗？ Answer: 还可以，就是有点忙。\"timestamp\": 2025-04-14 09:15:31",
+    "Question: 最近有什么新爱好吗？ Answer: 学习摄影。\"timestamp\": 2025-04-14 11:00:45",
+    "Question: 要不要周末爬山？ Answer: 好啊，我很久没运动了。\"timestamp\": 2025-04-14 14:05:55",
+    "Question: 最近去哪里旅行了？ Answer: 去了云南，风景很美。\"timestamp\": 2025-04-14 15:21:28",
+    "Question: 小时候最喜欢玩的是什么？ Answer: 踢足球。\"timestamp\": 2025-04-14 18:18:04",
+    "Question: 喜欢吃辣吗？ Answer: 喜欢，尤其川菜。\"timestamp\": 2025-04-14 21:30:12",
+
+    "Question: 你喜欢吃什么水果？ Answer: 我喜欢吃苹果和葡萄。\"timestamp\": 2025-05-14 08:05:55",
+    "Question: 今天学习了什么？ Answer: 学了点Python编程。\"timestamp\": 2025-05-14 09:45:12",
+    "Question: 最近参加活动了吗？ Answer: 周末参加了马拉松。\"timestamp\": 2025-05-14 15:21:28",
+    "Question: 最近买了什么东西？ Answer: 买了一部新手机。\"timestamp\": 2025-05-14 18:28:33",
+    "Question: 喜欢看足球吗？ Answer: 喜欢，尤其世界杯。\"timestamp\": 2025-05-14 20:10:44",
+    "Question: 最近有没有下雨？ Answer: 昨天下了一场大雨。\"timestamp\": 2025-05-14 23:59:12",
+
+    "Question: 最近看什么电影？ Answer: 看了《肖申克的救赎》。\"timestamp\": 2025-06-14 08:00:05",
+    "Question: 有没有好玩的手游推荐？ Answer: 原神不错。\"timestamp\": 2025-06-14 10:50:33",
+    "Question: 最近追剧了吗？ Answer: 在看《三体》电视剧。\"timestamp\": 2025-06-14 15:21:28",
+    "Question: 你会做蛋糕吗？ Answer: 会，我做过巧克力蛋糕。\"timestamp\": 2025-06-14 18:15:51",
+    "Question: 最喜欢的季节是哪个？ Answer: 秋天，凉爽舒适。\"timestamp\": 2025-06-14 20:22:45",
+    "Question: 有养宠物吗？ Answer: 有，一只猫。\"timestamp\": 2025-06-14 23:40:22",
+
+    "Question: 喜欢书店吗？ Answer: 很喜欢。\"timestamp\": 2025-07-14 08:55:14",
+    "Question: 最喜欢的颜色是什么？ Answer: 蓝色。\"timestamp\": 2025-07-14 09:30:45",
+    "Question: 最近去公园了吗？ Answer: 有，花开得很漂亮。\"timestamp\": 2025-07-14 15:21:28",
+    "Question: 最近玩游戏了吗？ Answer: 在玩塞尔达传说。\"timestamp\": 2025-07-14 18:45:59",
+    "Question: 平时运动多吗？ Answer: 一周至少跑步两次。\"timestamp\": 2025-07-14 20:18:55",
+    "Question: 有想学的乐器吗？ Answer: 想学吉他。\"timestamp\": 2025-07-14 23:50:05",
+
+    "Question: 昨天下雨了吗？ Answer: 下了大雨。\"timestamp\": 2025-08-14 08:00:00",
+    "Question: 今天阳光大吗？ Answer: 还好，微微有风。\"timestamp\": 2025-08-14 10:30:33",
+    "Question: 明天有什么安排吗？ Answer: 打算去郊游。\"timestamp\": 2025-08-14 15:21:28",
+    "Question: 今晚吃什么？ Answer: 想吃火锅。\"timestamp\": 2025-08-14 18:22:10"
+]

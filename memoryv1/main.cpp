@@ -7,6 +7,12 @@
 #include <map>
 #include <algorithm>
 #include <cctype> 
+#include <numeric>
+#include <faiss/Index.h>
+#include <ctime>     // ★ 时间相关
+#include <iomanip>   // ★ std::put_time
+#include <sstream>   // ★ std::ostringstream
+#include <deque>
 
 // 工具函数: Python list -> C++ vector<float>
 std::vector<float> py_list_to_vector(PyObject* pyList) {
@@ -119,10 +125,7 @@ std::string qwen_generate(PyObject* pModule, const std::string& prompt) {
 int main() {
     Py_Initialize();
     PyRun_SimpleString("import sys");
-    PyRun_SimpleString("sys.path.append('/home/vision/chenrunbin/faiss/memoryv2')");
-    PyRun_SimpleString("sys.path.append('/home/vision/.local/lib/python3.10/site-packages')");
-    PyRun_SimpleString("sys.path.append('/usr/lib/python3.10')");
-    PyRun_SimpleString("sys.path.append('/usr/lib/python3.10/lib-dynload')");
+    PyRun_SimpleString("sys.path.append('/home/vision/chenrunbin/aadkMemory/memoryv1')");
 
     PyObject* pModule = PyImport_ImportModule("embed");
     if (!pModule) {
@@ -152,7 +155,9 @@ int main() {
     faiss::IndexFlatIP base_index(dim);
     faiss::IndexIDMap index(&base_index);
     std::map<faiss::idx_t, std::string> id2text;
+    std::deque<faiss::idx_t> id_queue;
     faiss::idx_t next_id = 1;
+    float sims_threshold = 0.4; // 相似度阈值
 
     for (size_t i = 0; i < vecs.size(); ++i) {
         if (vecs[i].empty()) {
@@ -161,14 +166,23 @@ int main() {
         }
         index.add_with_ids(1, vecs[i].data(), &next_id);
         id2text[next_id] = texts[i];
+        id_queue.push_back(next_id);    // ✅初始化历史记录也加入队列
         next_id++;
     }
     std::cout << "[初始化完成] 条数: " << index.ntotal << "\n";
+    //打印出初始的对话记录索引表
+    std::cout << "[初始对话记录]:" << std::endl;
+    for (const auto& pair : id2text) {
+        std::cout << "ID: " << pair.first << " 文本: " << pair.second << std::endl;
+    }
+    std::cout << std::endl<< std::endl;
 
-    // 4. 对话循环，进行10轮对话
+
+    // 4. 对话循环，进行5轮对话
     for (int i = 0; i < 5; i++) {
         std::string query;
-        std::cout << "\n你: ";
+        std::cout << "=========================================================================\n";
+        std::cout << "Question: ";
         std::getline(std::cin, query);
         if (query == "exit" || query == "quit") break;
 
@@ -178,42 +192,49 @@ int main() {
             continue;
         }
 
-        int k = 3;
+        int k = 5;
         std::vector<faiss::idx_t> ids(k);
         std::vector<float> sims(k);
         index.search(1, qvec.data(), k, sims.data(), ids.data());
 
 
-        std::cout << "相关历史片段（按相似度排序）：\n";
-        for (int i = 0; i < k; i++) {
+        std::cout << "检索结果如下：\n相关历史片段（按相似度排序）：\n";
+        for (int i = 0; i < k && sims[i] > sims_threshold; i++) {
             if (ids[i] != -1) {
                 std::cout << "- [相似度: " << sims[i] << "] " << id2text[ids[i]] << "\n";
             }
         }
         std::cout << "\n\n";
 
-        // // 加入记忆（仅添加查询）
+        // 获取当前时间戳
+        std::time_t now = std::time(nullptr);
+        std::tm* tm_info = std::localtime(&now);
+        std::ostringstream oss;
+        oss << std::put_time(tm_info, "%Y-%m-%d %H:%M:%S");
+        std::string time_str = oss.str();
+
+        std::string prompt = "Question:" + query+ " \"timestamp\": "+ time_str + "\n";
+        prompt += "相关可供参考的历史对话片段信息如下:\n";
+        for (int i = 0; i < k && sims[i] > sims_threshold; i++) {
+            if (ids[i] != -1) {
+                prompt += id2text[ids[i]];
+            }
+        }
+        prompt += "\n请参考上述信息，用中文回复用户的问题。";
+
+        std::cout << "Qwen prompt: " << prompt << "\n\n";
+
+        std::string reply = qwen_generate(pModule, prompt);
+        std::cout << "Qwen answer: " << reply << "\n\n";
+
+
+        // // 加入记忆v1（仅添加查询）
         // index.add_with_ids(1, qvec.data(), &next_id);
         // id2text[next_id] = query;
         // next_id++;
 
 
-
-        std::string prompt = "用户的问题:" + query;
-        prompt += "相关可供参考的历史对话片段信息如下:";
-        for (int i = 0; i < k; i++) {
-            if (ids[i] != -1) {
-                prompt += id2text[ids[i]];
-            }
-        }
-        prompt += "请参考上述信息，用中文回复用户的问题。";
-
-        std::cout << "Qwen: " << prompt << "\n";
-
-        std::string reply = qwen_generate(pModule, prompt);
-        std::cout << "Qwen: " << reply << "\n";
-
-        // 加入记忆
+        // 加入记忆v2
         // index.add_with_ids(1, qvec.data(), &next_id);
         // id2text[next_id] = query;
         // next_id++;
@@ -224,16 +245,44 @@ int main() {
         //     next_id++;
         // }
 
-        // === 将问答对加入记忆 ===
-        std::string qa_pair = "A: " + query + " B: " + reply;
+        // 加入记忆v3:将问答对和此刻的时间戳一块作为历史记忆，限制条数，先入先出，动态加入到索引表中
+        std::string qa_pair = "Question: " + query + " Answer: " + reply + " \"timestamp\": "+ time_str;   
 
+        // 设定最大容量（包含历史 + 新增）
+        const size_t MAX_CAPACITY = 10;        //需要大于等于整个索引表的大小
+
+        // 添加QA
         auto emb_qa = get_embedding(pModule, qa_pair);
-        if (!emb_qa.empty()) {
+        if (!emb_qa.empty() && emb_qa.size() == dim) {
+
+            // 容量满 -> 移除最旧
+            if (id_queue.size() >= MAX_CAPACITY) {
+                faiss::idx_t oldest = id_queue.front();
+                id_queue.pop_front();
+                faiss::IDSelectorRange sel(oldest, oldest + 1);
+                index.remove_ids(sel);
+                id2text.erase(oldest);
+            }
+
+            // 添加新(真实 faiss ID)
             index.add_with_ids(1, emb_qa.data(), &next_id);
             id2text[next_id] = qa_pair;
+            id_queue.push_back(next_id);
             next_id++;
         }
 
+        std::cout << "当前对话已加入索引表，当前索引条数：" << id_queue.size() <<  std::endl;
+        // 打印
+        std::cout << "[Index内容]:" << std::endl;
+        int display_id = 1;
+        for (auto faiss_id : id_queue) {
+            std::cout << "ID: " << display_id
+                    << " 文本: " << id2text[faiss_id] << std::endl;
+            display_id++;
+        }
+
+
+        std::cout << std::endl << std::endl;
 
     }
 

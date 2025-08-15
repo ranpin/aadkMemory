@@ -7,11 +7,17 @@ from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from datasets import load_dataset
+import json
+
+from http import HTTPStatus
+import dashscope
+dashscope.api_key = "your-api-key"
 
 
 # ========= Embedding 模型 =========
 print("[Embedding] 加载模型中...")
-model = SentenceTransformer('shibing624/text2vec-base-chinese')
+# model = SentenceTransformer('shibing624/text2vec-base-chinese')
+model = SentenceTransformer('thenlper/gte-base-zh')
 print("[Embedding] 模型加载完成.")
 
 
@@ -44,26 +50,8 @@ def load_lccc(n=50):
     # 从 Hugging Face 加载中文对话数据
     # 如果无法加载则回退到内置测试数据
     # """
-    # try:
-    #     print(f"[HF] 正在加载 Hugging Face 数据集 (前 {n} 条)...")
-        
-    #     # 示例：加载 Hugging Face 上的中文数据集（需替换为实际存在的数据集）
-    #     # 本例使用 ChnSentiCorp 数据集作为演示
-    #     dataset = load_dataset("lansinuote/ChnSentiCorp", split="train")
-        
-    #     texts = []
-    #     for i, item in enumerate(dataset):
-    #         if i >= n:
-    #             break
-    #         # 根据实际数据集字段调整
-    #         text = f"{item.get('text', '')} {item.get('label', '')}".strip()
-    #         if text:
-    #             texts.append(text)
-        
-    #     print(f"[HF] 成功加载 {len(texts)} 条对话")
-    #     return texts
 
-    # """加载 SQuAD 中文问答数据集"""
+    # """加载 SQuAD 问答数据集"""
     # try:
     #     from datasets import load_dataset
     #     # print("[HF] 加载 SQuAD 中文问答数据集...")
@@ -74,60 +62,91 @@ def load_lccc(n=50):
     # except Exception as e:
     #     print(f"[HF][错误] 加载失败: {e}")
     #     print("[HF] 回退到内置测试数据")
-    return [
-        "A: 你好，最近怎么样？ B: 很好，谢谢。",
-        "A: 今天天气不错啊。 B: 是的，非常适合散步。",
-        "A: 周末一起去看电影吧。 B: 好啊，一起去。",
-        "A: 你在干嘛。 B: 我在看书。",
-        "A: 吃饭了吗。 B: 还没吃呢。",
-        "A: 昨天天气好吗? B: 倾盆大雨。",
-        "A: 今天天气好吗? B: 天气晴朗。",
-        "A: 明天天气好吗? B: 漫天大雪。",
-    ][:n]
+
+    file_path = os.path.join(os.path.dirname(__file__), "./datasets/historyv1.json")
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, list):
+            raise ValueError("JSON格式错误: 不是数组")
+        return data[:n]  # 返回前n条
+    except Exception as e:
+        print(f"[Python] 读取 history.json 发生错误: {e}")
+        return []
 
 
 # ========= Qwen 模型 =========
 print("[Qwen] 加载模型中...")
 device = "cuda" if torch.cuda.is_available() else "cpu"
-QWEN_MODEL = "Qwen/Qwen-1_8B-Chat"
 
-tokenizer = AutoTokenizer.from_pretrained(QWEN_MODEL, trust_remote_code=True)
-qwen_model = AutoModelForCausalLM.from_pretrained(
-    QWEN_MODEL,
-    torch_dtype=torch.float16 if device == "cuda" else torch.float32,
-    trust_remote_code=True
-).to(device).eval()
-print("[Qwen] 模型加载完成.")
 
+# # QWEN_MODEL = "Qwen/Qwen-1_8B-Chat"
+# # QWEN_MODEL = "Qwen/Qwen3-4B"
+# # QWEN_MODEL = "Qwen/Qwen2.5-7B-Instruct-1M"
+# QWEN_MODEL = "Qwen/Qwen3-1.7B"
+
+# tokenizer = AutoTokenizer.from_pretrained(QWEN_MODEL, trust_remote_code=True)
+# qwen_model = AutoModelForCausalLM.from_pretrained(
+#     QWEN_MODEL,
+#     torch_dtype=torch.float16 if device == "cuda" else torch.float32,
+#     trust_remote_code=True
+# ).to(device).eval()
+# print("[Qwen] 模型加载完成.")
+
+
+# def qwen_generate(prompt: str, max_new_tokens=256):
+#     """调用 Qwen 模型生成回复"""
+#     try:
+#         inputs = tokenizer(prompt, return_tensors="pt").to(device)
+#         if inputs["input_ids"].numel() == 0:
+#             return "[Qwen] 输入无效"
+
+#         # 强制禁用 past_key_values 以避免状态管理问题
+#         outputs = qwen_model.generate(
+#             **inputs,
+#             max_new_tokens=max_new_tokens,
+#             do_sample=True,
+#             top_p=0.6,
+#             temperature=0.6,
+#             pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id, # 填充标记ID
+#             use_cache=False  # ★★★ 关键修复点 ★★★
+#         )
+
+#         input_len = inputs["input_ids"].shape[1]
+#         gen_ids = outputs[0][input_len:]
+#         reply = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
+#         # reply = tokenizer.decode(gen_ids, skip_special_tokens=False).strip()  # 调试用，保留特殊标记
+
+#         if not reply.strip():
+#             return "[Qwen] 模型未生成有效文本"
+
+#         return reply
+
+#     except Exception as e:
+#         return f"[Qwen] 异常: {str(e)}"
+
+
+
+
+# ========= Qwen 云端调用 =========
+DASHSCOPE_MODEL = "qwen2.5-14b-instruct"  # 云端模型名，可改成 qwen-plus/qwen-max
 
 def qwen_generate(prompt: str, max_new_tokens=256):
-    """调用 Qwen 模型生成回复"""
     try:
-        inputs = tokenizer(prompt, return_tensors="pt").to(device)
-        if inputs["input_ids"].numel() == 0:
-            return "[Qwen] 输入无效"
-
-        # 强制禁用 past_key_values 以避免状态管理问题
-        outputs = qwen_model.generate(
-            **inputs,
-            max_new_tokens=max_new_tokens,
-            do_sample=True,
-            top_p=0.6,
+        rsp = dashscope.Generation.call(
+            model=DASHSCOPE_MODEL,
+            prompt=prompt,
+            max_tokens=max_new_tokens,
             temperature=0.6,
-            pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id,
-            use_cache=False  # ★★★ 关键修复点 ★★★
+            top_p=0.6
         )
 
-        input_len = inputs["input_ids"].shape[1]
-        gen_ids = outputs[0][input_len:]
-        reply = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
-        # reply = tokenizer.decode(gen_ids, skip_special_tokens=False).strip()
-
-        if not reply.strip():
-            return "[Qwen] 模型未生成有效文本"
-
-        return reply
+        # print(rsp)
+        if rsp.status_code == HTTPStatus.OK:
+            # API 会返回一个列表，你可以按文档取 output['text'] 或 output_text
+            return rsp.output['text']
+        else:
+            return f"[Qwen API] 请求失败: {rsp.code}, {rsp.message}"
 
     except Exception as e:
-        return f"[Qwen] 异常: {str(e)}"
-
+        return f"[Qwen API 异常] {str(e)}"
