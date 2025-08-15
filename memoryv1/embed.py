@@ -11,7 +11,7 @@ import json
 
 from http import HTTPStatus
 import dashscope
-dashscope.api_key = "your-api-key"
+# dashscope.api_key = "your-api-key"
 
 
 # ========= Embedding 模型 =========
