@@ -1,9 +1,10 @@
 CMakeFiles/chat_faiss.dir/main.cpp.o: \
- /home/vision/chenrunbin/faiss/memoryv2/main.cpp \
- /usr/include/stdc-predef.h /usr/include/python3.10/Python.h \
- /usr/include/python3.10/patchlevel.h /usr/include/python3.10/pyconfig.h \
- /usr/include/aarch64-linux-gnu/python3.10/pyconfig.h \
- /usr/include/python3.10/pymacconfig.h \
+ /home/vision/chenrunbin/aadkMemory/memoryv1/main.cpp \
+ /usr/include/stdc-predef.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/Python.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/patchlevel.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pyconfig.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pymacconfig.h \
  /usr/lib/gcc/aarch64-linux-gnu/12/include/limits.h \
  /usr/lib/gcc/aarch64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h \
@@ -83,7 +84,8 @@ CMakeFiles/chat_faiss.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/bits/getopt_core.h \
  /usr/include/aarch64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h /usr/include/assert.h \
- /usr/include/python3.10/pyport.h /usr/include/inttypes.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pyport.h \
+ /usr/include/inttypes.h \
  /usr/lib/gcc/aarch64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/aarch64-linux-gnu/bits/wchar.h \
  /usr/include/aarch64-linux-gnu/bits/stdint-uintn.h \
@@ -144,92 +146,108 @@ CMakeFiles/chat_faiss.dir/main.cpp.o: \
  /usr/include/aarch64-linux-gnu/bits/statx-generic.h \
  /usr/include/aarch64-linux-gnu/bits/types/struct_statx_timestamp.h \
  /usr/include/aarch64-linux-gnu/bits/types/struct_statx.h \
- /usr/include/python3.10/exports.h /usr/include/python3.10/pymacro.h \
- /usr/include/python3.10/pymath.h /usr/include/python3.10/pymem.h \
- /usr/include/python3.10/cpython/pymem.h /usr/include/python3.10/object.h \
- /usr/include/python3.10/cpython/object.h \
- /usr/include/python3.10/objimpl.h \
- /usr/include/python3.10/cpython/objimpl.h \
- /usr/include/python3.10/typeslots.h /usr/include/python3.10/pyhash.h \
- /usr/include/python3.10/cpython/pydebug.h \
- /usr/include/python3.10/bytearrayobject.h \
- /usr/include/python3.10/cpython/bytearrayobject.h \
- /usr/include/python3.10/bytesobject.h \
- /usr/include/python3.10/cpython/bytesobject.h \
- /usr/include/python3.10/unicodeobject.h /usr/include/ctype.h \
- /usr/include/wchar.h /usr/include/aarch64-linux-gnu/bits/types/wint_t.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/exports.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pymacro.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pymath.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pymem.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pymem.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/object.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/object.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/objimpl.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/objimpl.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/typeslots.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pyhash.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pydebug.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/bytearrayobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/bytearrayobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/bytesobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/bytesobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/unicodeobject.h \
+ /usr/include/ctype.h /usr/include/wchar.h \
+ /usr/include/aarch64-linux-gnu/bits/types/wint_t.h \
  /usr/include/aarch64-linux-gnu/bits/types/mbstate_t.h \
- /usr/include/python3.10/cpython/unicodeobject.h \
- /usr/include/python3.10/longobject.h \
- /usr/include/python3.10/longintrepr.h \
- /usr/include/python3.10/boolobject.h \
- /usr/include/python3.10/floatobject.h \
- /usr/include/python3.10/complexobject.h \
- /usr/include/python3.10/rangeobject.h \
- /usr/include/python3.10/memoryobject.h \
- /usr/include/python3.10/tupleobject.h \
- /usr/include/python3.10/cpython/tupleobject.h \
- /usr/include/python3.10/listobject.h \
- /usr/include/python3.10/cpython/listobject.h \
- /usr/include/python3.10/dictobject.h \
- /usr/include/python3.10/cpython/dictobject.h \
- /usr/include/python3.10/cpython/odictobject.h \
- /usr/include/python3.10/enumobject.h /usr/include/python3.10/setobject.h \
- /usr/include/python3.10/methodobject.h \
- /usr/include/python3.10/cpython/methodobject.h \
- /usr/include/python3.10/moduleobject.h \
- /usr/include/python3.10/funcobject.h \
- /usr/include/python3.10/classobject.h \
- /usr/include/python3.10/fileobject.h \
- /usr/include/python3.10/cpython/fileobject.h \
- /usr/include/python3.10/pycapsule.h /usr/include/python3.10/code.h \
- /usr/include/python3.10/cpython/code.h /usr/include/python3.10/pyframe.h \
- /usr/include/python3.10/traceback.h \
- /usr/include/python3.10/cpython/traceback.h \
- /usr/include/python3.10/sliceobject.h \
- /usr/include/python3.10/cellobject.h \
- /usr/include/python3.10/iterobject.h \
- /usr/include/python3.10/cpython/initconfig.h \
- /usr/include/python3.10/genobject.h /usr/include/python3.10/pystate.h \
- /usr/include/python3.10/cpython/pystate.h \
- /usr/include/python3.10/abstract.h \
- /usr/include/python3.10/cpython/abstract.h \
- /usr/include/python3.10/descrobject.h \
- /usr/include/python3.10/genericaliasobject.h \
- /usr/include/python3.10/warnings.h \
- /usr/include/python3.10/weakrefobject.h \
- /usr/include/python3.10/structseq.h \
- /usr/include/python3.10/namespaceobject.h \
- /usr/include/python3.10/cpython/picklebufobject.h \
- /usr/include/python3.10/cpython/pytime.h \
- /usr/include/python3.10/codecs.h /usr/include/python3.10/pyerrors.h \
- /usr/include/python3.10/cpython/pyerrors.h \
- /usr/include/python3.10/pythread.h /usr/include/pthread.h \
- /usr/include/sched.h /usr/include/aarch64-linux-gnu/bits/sched.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/unicodeobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/longobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/longintrepr.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/boolobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/floatobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/complexobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/rangeobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/memoryobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/tupleobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/tupleobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/listobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/listobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/dictobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/dictobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/odictobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/enumobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/setobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/methodobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/methodobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/moduleobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/funcobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/classobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/fileobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/fileobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pycapsule.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/code.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/code.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pyframe.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/traceback.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/traceback.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/sliceobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cellobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/iterobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/initconfig.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/genobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pystate.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pystate.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/abstract.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/abstract.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/descrobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/genericaliasobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/warnings.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/weakrefobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/structseq.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/namespaceobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/picklebufobject.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pytime.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/codecs.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pyerrors.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pyerrors.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pythread.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/aarch64-linux-gnu/bits/sched.h \
  /usr/include/aarch64-linux-gnu/bits/types/struct_sched_param.h \
  /usr/include/aarch64-linux-gnu/bits/cpu-set.h \
  /usr/include/aarch64-linux-gnu/bits/setjmp.h \
  /usr/include/aarch64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
- /usr/include/python3.10/context.h /usr/include/python3.10/modsupport.h \
- /usr/include/python3.10/compile.h \
- /usr/include/python3.10/cpython/compile.h \
- /usr/include/python3.10/pythonrun.h \
- /usr/include/python3.10/cpython/pythonrun.h \
- /usr/include/python3.10/pylifecycle.h \
- /usr/include/python3.10/cpython/pylifecycle.h \
- /usr/include/python3.10/ceval.h /usr/include/python3.10/cpython/ceval.h \
- /usr/include/python3.10/sysmodule.h \
- /usr/include/python3.10/cpython/sysmodule.h \
- /usr/include/python3.10/osmodule.h /usr/include/python3.10/intrcheck.h \
- /usr/include/python3.10/import.h \
- /usr/include/python3.10/cpython/import.h \
- /usr/include/python3.10/bltinmodule.h /usr/include/python3.10/eval.h \
- /usr/include/python3.10/cpython/pyctype.h \
- /usr/include/python3.10/pystrtod.h /usr/include/python3.10/pystrcmp.h \
- /usr/include/python3.10/fileutils.h \
- /usr/include/python3.10/cpython/fileutils.h \
- /usr/include/python3.10/cpython/pyfpe.h \
- /usr/include/python3.10/tracemalloc.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/context.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/modsupport.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/compile.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/compile.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pythonrun.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pythonrun.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pylifecycle.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pylifecycle.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/ceval.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/ceval.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/sysmodule.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/sysmodule.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/osmodule.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/intrcheck.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/import.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/import.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/bltinmodule.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/eval.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pyctype.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pystrtod.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/pystrcmp.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/fileutils.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/fileutils.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/cpython/pyfpe.h \
+ /home/vision/zyn/miniconda3/envs/crb-memory/include/python3.10/tracemalloc.h \
  /usr/local/include/faiss/IndexFlat.h /usr/include/c++/12/vector \
  /usr/include/c++/12/bits/allocator.h \
  /usr/include/aarch64-linux-gnu/c++/12/bits/c++allocator.h \
@@ -334,4 +352,15 @@ CMakeFiles/chat_faiss.dir/main.cpp.o: \
  /usr/include/c++/12/bits/algorithmfwd.h \
  /usr/include/c++/12/bits/stl_heap.h \
  /usr/include/c++/12/bits/uniform_int_dist.h \
- /usr/include/c++/12/pstl/glue_algorithm_defs.h
+ /usr/include/c++/12/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/12/numeric /usr/include/c++/12/bits/stl_numeric.h \
+ /usr/include/c++/12/pstl/glue_numeric_defs.h /usr/include/c++/12/ctime \
+ /usr/include/c++/12/iomanip /usr/include/c++/12/locale \
+ /usr/include/c++/12/bits/locale_facets_nonio.h \
+ /usr/include/aarch64-linux-gnu/c++/12/bits/time_members.h \
+ /usr/include/aarch64-linux-gnu/c++/12/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/12/bits/codecvt.h \
+ /usr/include/c++/12/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/12/bits/locale_conv.h \
+ /usr/include/c++/12/bits/quoted_string.h /usr/include/c++/12/deque \
+ /usr/include/c++/12/bits/stl_deque.h /usr/include/c++/12/bits/deque.tcc
