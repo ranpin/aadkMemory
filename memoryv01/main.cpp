@@ -125,7 +125,7 @@ std::string qwen_generate(PyObject* pModule, const std::string& prompt) {
 int main() {
     Py_Initialize();
     PyRun_SimpleString("import sys");
-    PyRun_SimpleString("sys.path.append('/home/vision/chenrunbin/aadkMemory/memoryv1')");
+    PyRun_SimpleString("sys.path.append('/home/vision/chenrunbin/aadkMemory/memoryv01')");
 
     PyObject* pModule = PyImport_ImportModule("embed");
     if (!pModule) {
