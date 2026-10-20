@@ -1,0 +1,26 @@
+# Build directories
+build/
+cmake-build-debug/
+cmake-build-release/
+
+# Compiled binaries (由 memoryv1/ 与 studydemo/ 的构建产生)
+chat_faiss
+faiss_demo
+*.o
+*.out
+*.exe
+*.dylib
+*.so
+*.a
+
+# FAISS 索引产物（运行 faiss_demo / chat_faiss 时生成）
+*.faiss
+
+# Python
+__pycache__/
+*.py[cod]
+
+# IDE / OS
+.vscode/
+.DS_Store
+*.swp

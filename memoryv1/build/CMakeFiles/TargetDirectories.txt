@@ -1,3 +1,0 @@
-/home/vision/chenrunbin/aadkMemory/memoryv1/build/CMakeFiles/chat_faiss.dir
-/home/vision/chenrunbin/aadkMemory/memoryv1/build/CMakeFiles/edit_cache.dir
-/home/vision/chenrunbin/aadkMemory/memoryv1/build/CMakeFiles/rebuild_cache.dir

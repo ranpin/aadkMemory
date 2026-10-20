@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/chat_faiss.dir/main.cpp.o -o chat_faiss   -L/usr/local/lib  -Wl,-rpath,/usr/local/lib:/home/vision/zyn/miniconda3/envs/crb-memory/lib -lfaiss -lopenblas /home/vision/zyn/miniconda3/envs/crb-memory/lib/libpython3.10.so

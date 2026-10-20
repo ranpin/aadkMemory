@@ -11,6 +11,10 @@ aadkMemory 是一个基于 FAISS 的对话记忆检索 demo，不是内存分配
 相似度检索，把 Top-K 历史片段拼进 prompt，再调用 Qwen（dashscope 云端 `qwen2.5-14b-instruct`）
 生成回复，并把本轮问答重新编码后写回索引。
 
+**定位与边界（如实说明）**：这是一个学习性质的对话记忆检索 demo——embedding 在本地
+（sentence-transformers）、生成走云端（dashscope Qwen），属于「本地检索 + 云端生成」的
+功能分工，**不是端侧部署**，也没有端云融合路由或资源调度。
+
 - `memoryv1/`：主程序，编译产物为 `chat_faiss`
 - `studydemo/`：FAISS 独立学习示例（`faiss_demo.cpp`）与 FAISS 源码编译脚本
 
@@ -51,14 +55,16 @@ make -j8
 运行：
 ./chat_faiss
 
-注意：`memoryv1/main.cpp` 里写死了 Python 模块搜索路径
+`memoryv1/main.cpp` 通过 `sys.path` 找 `embed.py`：默认同时搜索当前目录与上级目录，
+所以从 `memoryv1/` 或 `memoryv1/build/` 运行都能命中。若 `embed.py` 放在别处，
+用环境变量指定它所在目录的绝对路径：
 
-```cpp
-PyRun_SimpleString("sys.path.append('/home/vision/chenrunbin/aadkMemory/memoryv1')");
+```bash
+AADK_EMBED_PATH=/abs/path/to/memoryv1 ./chat_faiss
 ```
 
-换机器跑之前必须把这一行改成自己的 `memoryv1` 绝对路径，否则会报「无法导入 embed.py」。
-同理 `studydemo/build.sh` 里的 FAISS 路径（`/home/vision/chenrunbin/faiss`）也要改。
+`studydemo/build.sh` 的 FAISS 前缀默认 `/usr/local`（即 `build_faiss.sh` 的安装位置）；
+装在别处用 `FAISS_PREFIX=<你的前缀> bash studydemo/build.sh` 覆盖。
 
 调用 Qwen 走 dashscope 云端，需要先设置 API Key（`embed.py` 里的 `dashscope.api_key` 当前是注释掉的占位）。
 

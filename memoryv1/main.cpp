@@ -125,7 +125,12 @@ std::string qwen_generate(PyObject* pModule, const std::string& prompt) {
 int main() {
     Py_Initialize();
     PyRun_SimpleString("import sys");
-    PyRun_SimpleString("sys.path.append('/home/vision/chenrunbin/aadkMemory/memoryv1')");
+    // embed.py 搜索路径：优先用环境变量 AADK_EMBED_PATH（绝对路径）；否则同时加入
+    // 当前目录与上级目录——从 memoryv1/ 或 memoryv1/build/ 运行都能命中。
+    // （原先这里写死了作者机器的绝对路径，换机器必失败。）
+    PyRun_SimpleString("import os");
+    PyRun_SimpleString("_p = os.environ.get('AADK_EMBED_PATH')");
+    PyRun_SimpleString("sys.path.append(_p) if _p else sys.path.extend(['.', '..'])");
 
     PyObject* pModule = PyImport_ImportModule("embed");
     if (!pModule) {
